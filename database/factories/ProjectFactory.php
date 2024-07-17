@@ -17,13 +17,15 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            "name"=>fake()->sentence,
-            "description"=>fake()->realText(),
-            "due_date"=>fake()->dateTimeBetween("now","+ 1year"),
-            "status"=>fake()->randomElement(["pending","in_progress","completed"]),
-            "img_path"=>fake()->imageUrl(),
-            "created_by"=>1,
-            "updated_by"=>1
+            "name" => $this->faker->sentence,
+            "description" => $this->faker->realText(),
+            "due_date" => $this->faker->dateTimeBetween("now", "+1 year"),
+            "status" => $this->faker->randomElement(["pending", "in_progress", "completed"]),
+            "img_path" => $this->faker->imageUrl(),
+            "created_by" => 1,
+            "updated_by" => 1,
+            "created_at" => time(),
+            "updated_at" => time()
         ];
     }
 }
