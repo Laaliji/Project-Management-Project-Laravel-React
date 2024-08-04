@@ -1,25 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\resources\Pages\Project\Index;
+use resources\js\Pages\Index;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
+use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        $query = Project::query();
-        $projects = Project::with(['creator', 'updater'])->get();
-
-        return inertia("Project/Index",[
-            "projects" => ProjectResource::collection($projects)
+        $projects = Project::paginate(10); // Get 10 projects per page
+        return inertia('Project/Index', [
+            'projects' => ProjectResource::collection($projects)->response()->getData(true),
         ]);
     }
 
